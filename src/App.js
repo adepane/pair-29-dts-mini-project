@@ -3,15 +3,23 @@ import './App.css';
 import { ThemeProvider } from '@mui/material';
 
 import theme from './themes/theme';
-import Navbar from './components/Navbar/Navbar';
-import Footer from './components/Footer/Footer';
+import { Routes, Route } from 'react-router-dom';
+import MovieList from './containers/MovieList';
+import Login from './containers/Login';
+import Register from './containers/Register';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <div className="App">
-        <Navbar/>
-        <Footer/>
+        <Routes>
+          <Route path="/" element={<MovieList />} />
+          <Route path="/series" element={<MovieList data='series'/>} />
+          <Route path="/movies" element={<MovieList data='movies' />} />
+          <Route path="/new-popular" element={<MovieList data='new-popular' />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+        </Routes>
       </div>
     </ThemeProvider>
   );
