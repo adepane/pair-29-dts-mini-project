@@ -6,7 +6,7 @@ import BasicList from "../List/BasicList";
 const Footer = () => {
     return (
         <AppBar
-            position="fixed"
+            position="static"
             sx={{
                 top: 'auto',
                 bottom: 0,
@@ -24,7 +24,7 @@ const Footer = () => {
                 </div>
                 <Typography
                     variant="subtitle2"
-                    component={"text"}
+                    // component={"text"}
                     style={{
                         width: 950,
                         color: '#808080',
