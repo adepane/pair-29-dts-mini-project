@@ -1,87 +1,48 @@
-import { Container, Grid } from "@mui/material";
+import { Container } from "@mui/material";
 import React from "react"; 
 import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
-import { useMoviesQuery } from "../services/moviesApi";
-import MovieCard from "../components/MovieCard";
-import Carousel from 'react-multi-carousel';
+import { useMoviesIdnQuery, useMoviesQuery, useMoviesTypeQuery } from "../services/moviesApi";
 import 'react-multi-carousel/lib/styles.css';
-import theme from "../themes/theme";
+import Banner from "../components/Banner/Banner";
+import CarouselRow from "../components/CarouselRow/CarouselRow";
 
 const MovieList = () => {
-    const {data, error, isLoading } = useMoviesQuery();
-
-    const loadData = isLoading ? <>Loading...</>
-        : data.results.map(movie => (
-            <MovieCard
-                key={movie.id}
-                id={movie.id}
-                rating={movie.rating}
-                title={movie.title}
-                img={movie.backdrop_path} 
-            />
-        ));
-
+    const { data = [], isLoading, isError } = useMoviesQuery('all');
+    const { data: dataIdn = [], isLoading: idnIsLoading, isError: idnIsError } = useMoviesIdnQuery({'type':'movie', 'region':'id'});
+    const { data: movies = [], isLoading: moviesLoading, isError: moviesError } = useMoviesTypeQuery('movie');
+    const { data: series = [], isLoading: seriesLoading, isError: seriesError } = useMoviesTypeQuery('tv');
+    const trendingWeek = isLoading ? (
+      <>Loading...</>
+    ) : (
+      <>
+        <Banner movie={data.results[0]} />
+        <CarouselRow data={data} title={"Weekly Trending"}/>
+      </>
+    );
+    const indonesianTrend = idnIsLoading ? (
+      <>Loading...</>
+    ) : (
+      <CarouselRow data={dataIdn} title={"Indonesian Trending"} makerank={true}  />
+    );
+    const movieList = moviesLoading ? (
+      <>Loading...</>
+    ) : (
+      <CarouselRow data={movies} title={"Movies"} />
+    );
+    const seriesList = seriesLoading ? (
+      <>Loading...</>
+    ) : (
+      <CarouselRow data={series} title={"Series"} />
+    );
     return (
       <>
         <Navbar />
-        <Container
-          sx={{ minHeight: "60vh", marginTop: "13vh" }}
-          maxWidth={false}
-        >
-          <Grid>
-            <Grid item xs={12} sx={{ paddingBottom: "10px" }}>
-              <span
-                style={{
-                  padding: "0 10px",
-                  fontSize: "20px",
-                  fontWeight: "bold",
-                  color: '#c1c1c1',
-                }}
-              >
-                Weekly Trending
-              </span>
-            </Grid>
-            <Carousel
-              additionalTransfrom={0}
-              arrows
-              autoPlaySpeed={3000}
-              centerMode={false}
-              className=""
-              containerClass="container"
-              dotListClass=""
-              draggable={false}
-              focusOnSelect={false}
-              infinite={false}
-              itemClass=""
-              keyBoardControl
-              minimumTouchDrag={100}
-              pauseOnHover
-              renderArrowsWhenDisabled={false}
-              renderButtonGroupOutside={false}
-              renderDotsOutside={false}
-              responsive={{
-                desktop: {
-                  breakpoint: {
-                    max: 3000,
-                    min: 1024,
-                  },
-                  items: 5,
-                  partialVisibilityGutter: 40,
-                },
-                mobile: {
-                  breakpoint: {
-                    max: 464,
-                    min: 0,
-                  },
-                  items: 1,
-                  partialVisibilityGutter: 30,
-                },
-              }}
-            >
-              {error ? <>Oh no, there was an error</> : loadData}
-            </Carousel>
-          </Grid>
+        <Container sx={{ minHeight: "150vh" }} maxWidth={false} disableGutters>
+          {isError ? <>Oh no, there was an error</> : trendingWeek}
+          {idnIsError ? <>Oh no, there was an error</> : indonesianTrend}
+          {moviesError ? <>Oh no, there was an error</> : movieList}
+          {seriesError ? <>Oh no, there was an error</> : seriesList}
         </Container>
         <Footer />
       </>

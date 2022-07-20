@@ -36,3 +36,7 @@
     transform: rotate(360deg);
   }
 }
+
+.react-multi-carousel-item {
+  margin: 0px 3px;
+}

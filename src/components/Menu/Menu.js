@@ -5,8 +5,6 @@ const navItems = [
     { text: 'Home', link: '/' },
     { text: 'Series', link: '/tv' },
     { text: 'Movies', link: '/movies' },
-    { text: 'New and Popular', link: '/new-popular' },
-    { text: 'My List', link: '/my-list' },
 ];
 
 const Menu = () => {
