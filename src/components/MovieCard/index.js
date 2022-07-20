@@ -4,7 +4,7 @@ import { Card, CardMedia } from "@mui/material";
 
 const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/original";
 
-function MovieCard({ id, img, title, mediaType, rank, makerank = false}) {
+function MovieCard({ id, img, title, mediaType, rank, makerank = false, portrait = false}) {
     const rankImage =
       rank <= 10 && makerank ? (
         <div
@@ -23,15 +23,19 @@ function MovieCard({ id, img, title, mediaType, rank, makerank = false}) {
       ) : (
         ""
       );
+    const mediaPortrait = portrait ? '345px' : '150px';
+    const cardPortrait = portrait ? '180px' : '345px';
     return (
       <Link
         to={`/${mediaType === "movie" ? "movie" : "tv"}/${id}`}
         sx={{ margin: "10px" }}
       >
-        <Card sx={{ maxWidth: 345, width: "100%", position: 'relative' }}>
+        <Card
+          sx={{ maxWidth: cardPortrait, width: "100%", position: "relative" }}
+        >
           <CardMedia
             component="img"
-            height="150"
+            height={mediaPortrait}
             image={`${BASE_IMAGE_URL}${img}`}
             alt={title}
           />

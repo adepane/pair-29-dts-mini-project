@@ -23,12 +23,12 @@ const MovieList = () => {
     const indonesianTrend = idnIsLoading ? (
       <>Loading...</>
     ) : (
-      <CarouselRow data={dataIdn} title={"Indonesian Trending"} makerank={true}  />
+      <CarouselRow data={dataIdn} title={"Top Indonesian Trending"} makerank={true}  />
     );
     const movieList = moviesLoading ? (
       <>Loading...</>
     ) : (
-      <CarouselRow data={movies} title={"Movies"} />
+      <CarouselRow data={movies} title={"Movies"} portrait={true} />
     );
     const seriesList = seriesLoading ? (
       <>Loading...</>

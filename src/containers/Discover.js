@@ -26,7 +26,7 @@ const Discover = (props) => {
     const topRatedList = topRatedLoading ? (
       <>Loading...</>
     ) : (
-      <CarouselRow data={topRated} title={"Top Rated"} />
+      <CarouselRow data={topRated} title={"Top Rated"} portrait={true} />
     );
     const popularList = popularLoading ? (
       <>Loading...</>

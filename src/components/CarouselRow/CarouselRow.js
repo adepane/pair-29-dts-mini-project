@@ -3,7 +3,8 @@ import React from "react";
 import Carousel from "react-multi-carousel";
 import MovieCard from "../MovieCard";
 
-const CarouselRow = ({ data, title, makerank = false }) => {
+const CarouselRow = ({ data, title, makerank = false, portrait = false}) => {
+    const totalList = portrait ? 7 : 5;
     return (
       <Grid sx={{ padding: "10px 20px" }}>
         <Grid item xs={12} sx={{ paddingBottom: "10px" }}>
@@ -42,7 +43,7 @@ const CarouselRow = ({ data, title, makerank = false }) => {
                 max: 3000,
                 min: 1024,
               },
-              items: 5,
+              items: totalList,
               partialVisibilityGutter: 40,
             },
             mobile: {
@@ -65,6 +66,7 @@ const CarouselRow = ({ data, title, makerank = false }) => {
               img={movie.backdrop_path}
               mediaType={movie.media_type}
               makerank={makerank}
+              portrait={portrait}
             />
           ))}
         </Carousel>
