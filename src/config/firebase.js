@@ -1,10 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
-const FIREBASE_KEY = process.env.REACT_APP_FIREBASE_KEY;
-
 const firebaseConfig = {
-  apiKey: FIREBASE_KEY,
+  apiKey: "AIzaSyConpMeuN2OLfkxdTcfETUi5pPP8dEPBzs",
   authDomain: "moviedts2022.firebaseapp.com",
   projectId: "moviedts2022",
   storageBucket: "moviedts2022.appspot.com",
