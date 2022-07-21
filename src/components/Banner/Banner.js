@@ -5,6 +5,7 @@ import "./style.css";
 import { useMoviesTrailerQuery } from "../../services/moviesApi";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import { Link } from "react-router-dom";
 
 const Banner = ({ movie }) => {
   const { data, isLoading } = useMoviesTrailerQuery(movie.id);
@@ -49,21 +50,14 @@ const Banner = ({ movie }) => {
             variant="outlined"
             sx={{ marginRight: "10px", textTransform: "capitalize" }}
           >
-            <PlayArrowIcon /> Play
-          </Button>
-          <Button
-            color="info"
-            variant="outlined"
-            sx={{ marginRight: "10px", textTransform: "capitalize" }}
-          >
-            <InfoOutlinedIcon /> Information
+            {movie.media_type}
           </Button>
           <Button
             color="info"
             variant="outlined"
             sx={{ textTransform: "capitalize" }}
           >
-            {movie.media_type}
+            <InfoOutlinedIcon /> More info
           </Button>
           <Typography
             sx={{
@@ -74,6 +68,31 @@ const Banner = ({ movie }) => {
           >
             {movie.media_type === "movie" ? movie.title : movie.name}
           </Typography>
+         
+          <Link
+            style={{
+              marginRight: "10px",
+              textTransform: "capitalize",
+              border: "1px solid #fff",
+              display: "inline-flex",
+              alignItems: "center",
+              justifyContent: "center",
+              position: "relative",
+              padding: "5px 15px",
+              fontSize: "0.875rem",
+              lineHeight: "1.75",
+              fontFamily: "Roboto",
+              minWidth: "64px",
+              borderRadius: "4px",
+              fontWeight: "500",
+              letterSpacing: "0.02857em",
+              color: "#fff",
+              textDecoration: "none",
+            }}
+            to={`/${movie.media_type ? "movie" : "tv"}/${movie.id}`}
+          >
+            <PlayArrowIcon /> Play
+          </Link>
         </div>
       </div>
     </Paper>

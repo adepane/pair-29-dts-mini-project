@@ -15,7 +15,6 @@ const Login = () => {
       const password = data.get("password");
       signInWithEmailAndPassword(auth, email, password)
         .then((res) => {
-          console.log(res);
           navigate("/");
         })
         .catch((err) => {

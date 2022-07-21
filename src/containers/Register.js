@@ -15,7 +15,6 @@ const Register = () => {
         const password = data.get("password");
         createUserWithEmailAndPassword(auth, email, password)
         .then((res) => {
-            console.log(res)
             navigate("/");
         })
         .catch(err => {

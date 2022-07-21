@@ -64,7 +64,9 @@ const CarouselRow = ({ data, title, makerank = false, portrait = false}) => {
               rating={movie.rating}
               title={movie.title}
               img={movie.backdrop_path}
-              mediaType={movie.media_type}
+              mediaType={
+                movie.media_type === "movie" ? "movie" : (movie.first_air_date ? "tv" : "movie")
+              }
               makerank={makerank}
               portrait={portrait}
             />
