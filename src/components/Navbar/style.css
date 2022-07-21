@@ -1,0 +1,25 @@
+.nav {
+    border-radius: 4px;
+    padding: 12px 8px;
+    margin-right: 8px;
+    text-decoration: none;
+    color: #c1c1c1;
+    font-family: 'Neflix Sans', sans-serif;
+    font-weight: medium;
+}
+
+.nav-logo {
+    min-width: 44px;
+    background: url('../../../public/assets/images/logo.png') no-repeat;
+    background-size: contain;
+    color: transparent;
+}
+
+.nav-inactive {
+    color: #c1c1c1;
+}
+
+.nav-active {
+    color: #ffffff;
+    background-color: #B22727;
+}
