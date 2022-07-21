@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Card, CardMedia, Stack } from "@mui/material";
-import { height } from "@mui/system";
 
 const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/original";
 
