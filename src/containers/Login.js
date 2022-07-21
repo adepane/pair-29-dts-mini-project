@@ -18,7 +18,7 @@ const Login = () => {
           navigate("/");
         })
         .catch((err) => {
-          setErrors([errors, err.message]);
+          setErrors([errors, 'Email / Password is incorrect']);
           errRef.current.focus();
         });
     };

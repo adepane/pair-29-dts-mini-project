@@ -1,5 +1,4 @@
-/* eslint-disable jsx-a11y/iframe-has-title */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button, Paper, Typography } from "@mui/material";
 import "./style.css";
 import { useMoviesTrailerQuery } from "../../services/moviesApi";
@@ -8,17 +7,48 @@ import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import { Link } from "react-router-dom";
 
 const Banner = ({ movie }) => {
-  const { data, isLoading } = useMoviesTrailerQuery(movie.id);
-  const loadData = isLoading ? (
-    <>Loading...</>
-  ) : (
-    `https://www.youtube.com/embed/${data.results[0].key}?controls=0&autoplay=1&mute=1&rel=0&loop=1`
-  );
+  
+  const { data, isLoading } = useMoviesTrailerQuery({'type':'movie', 'id': movie.id});
+  const [state, setState] = useState({
+    mobileView: false,
+  });
+  const { mobileView } = state;
+
+  useEffect(() => {
+    const setResponsiveness = () => {
+      return window.innerWidth < 900
+        ? setState((prevState) => ({ ...prevState, mobileView: true }))
+        : setState((prevState) => ({ ...prevState, mobileView: false }));
+    };
+
+    setResponsiveness();
+    window.addEventListener("resize", () => setResponsiveness());
+
+    return () => {
+      window.removeEventListener("resize", () => setResponsiveness());
+    };
+  }, []);
+  const loadData =
+    isLoading ? (
+      <>Loading...</>
+    ) : (
+      (!mobileView) ?
+        <iframe
+        frameBorder="0"
+        height="650"
+        width="100%"
+        src={`https://www.youtube.com/embed/${data?.results[0]?.key}?controls=0&autoplay=1&mute=1&rel=0&loop=1`}
+        autoPlay
+        allow="autoplay"
+        title="video"
+      ></iframe>
+      : ""
+    );
   return (
     <Paper
       className="paper"
       sx={{
-        position: "relative",
+        // position: "relative",
         height: "650px",
       }}
       style={{
@@ -27,14 +57,7 @@ const Banner = ({ movie }) => {
       }}
     >
       <div className="video-container">
-        <iframe
-          frameBorder="0"
-          height="650"
-          width="100%"
-          src={loadData}
-          autoPlay
-          allow="autoplay"
-        ></iframe>
+        {loadData}
         <div
           style={{
             fontSize: "25px",

@@ -12,13 +12,14 @@ export const moviesApi = createApi({
       query: (type) => `/trending/${type}/week?api_key=${API_KEY}`,
     }),
     moviesById: builder.query({
-        query: (id) => `/movie/${id}?api_key=${API_KEY}`,
+      query: (id) => `/movie/${id}?api_key=${API_KEY}`,
     }),
     moviesTvById: builder.query({
-        query: (id) => `/tv/${id}?api_key=${API_KEY}`,
+      query: (id) => `/tv/${id}?api_key=${API_KEY}`,
     }),
     moviesTrailer: builder.query({
-      query: (id) => `/movie/${id}/videos?api_key=${API_KEY}`,
+      query: (request) =>
+        `/${request.type}/${request.id}/videos?api_key=${API_KEY}`,
     }),
     moviesDiscover: builder.query({
       query: (request) =>
@@ -34,8 +35,7 @@ export const moviesApi = createApi({
       query: (type) => `/${type}/top_rated?api_key=${API_KEY}`,
     }),
     moviesRecommendation: builder.query({
-      query: (request) =>
-        `/${request.type}/${request.id}/recommendations?api_key=${API_KEY}`,
+      query: (request) => `/${request.type}/${request.id}/recommendations?api_key=${API_KEY}`,
     }),
   }),
   overrideExisting: false,
