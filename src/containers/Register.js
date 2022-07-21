@@ -1,8 +1,29 @@
-import { Box, Button, FormControl, Grid, Input, InputLabel, Typography } from "@mui/material";
-import React from "react";
-import { Link } from "react-router-dom";
+import { Button, FormControl, Grid, Input, InputLabel, Typography } from "@mui/material";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import React, { useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { auth } from "../config/firebase";
 
 const Register = () => {
+    const errRef = useRef(null);
+    const [errors, setErrors] = useState("");
+    const navigate = useNavigate();
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        const data = new FormData(e.currentTarget);
+        const email = data.get("email");
+        const password = data.get("password");
+        createUserWithEmailAndPassword(auth, email, password)
+        .then((res) => {
+            console.log(res)
+            navigate("/");
+        })
+        .catch(err => {
+           setErrors([errors, err.message]);
+           errRef.current.focus();
+        })
+    }
+
     return (
       <Grid container style={{ minHeight: "100vh" }}>
         <Grid
@@ -41,16 +62,28 @@ const Register = () => {
               width: "100%",
             }}
           >
-            <Box
+            <form
               style={{ display: "flex", flexDirection: "Column", width: "60%" }}
-              
+              onSubmit={handleSubmit}
             >
-              <div style={{
-                textAlign: "center",
-                marginBottom: "30px",
-              }}>
-                <img src="../../assets/images/logo.png" alt="logo" style={{ width: "20%"}}/>
+              <div
+                style={{
+                  textAlign: "center",
+                  marginBottom: "10px",
+                }}
+              >
+                <img
+                  src="../../assets/images/logo.png"
+                  alt="logo"
+                  style={{ width: "20%" }}
+                />
               </div>
+              <div ref={errRef} style={{
+                color: "red",
+                fontSize: "14px",
+                textAlign: "center",
+                marginBottom: "10px",
+              }}>{errors}</div>
               <FormControl
                 variant="filled"
                 color="info"
@@ -61,49 +94,20 @@ const Register = () => {
                 }}
               >
                 <InputLabel
-                  htmlFor="firstname"
+                  htmlFor="email"
                   color="info"
                   style={{ color: "#c3c3c3" }}
                 >
-                  First Name
+                  Email
                 </InputLabel>
-                <Input id="firstname" />
-              </FormControl>
-              <FormControl
-                variant="filled"
-                color="info"
-                style={{
-                  border: "1px solid #ffffff",
-                  marginBottom: "30px",
-                  background: "#333",
-                }}
-              >
-                <InputLabel
-                  htmlFor="lastname"
-                  color="info"
-                  style={{ color: "#c3c3c3" }}
-                >
-                  Last Name
-                </InputLabel>
-                <Input id="lastname" />
-              </FormControl>
-              <FormControl
-                variant="filled"
-                color="info"
-                style={{
-                  border: "1px solid #ffffff",
-                  marginBottom: "30px",
-                  background: "#333",
-                }}
-              >
-                <InputLabel
-                  htmlFor="username"
-                  color="info"
-                  style={{ color: "#c3c3c3" }}
-                >
-                  Username
-                </InputLabel>
-                <Input id="username" />
+                <Input
+                  id="email"
+                  name="email"
+                  style={{
+                    color: "white",
+                    padding: "5px 15px",
+                  }}
+                />
               </FormControl>
               <FormControl
                 variant="filled"
@@ -121,7 +125,15 @@ const Register = () => {
                 >
                   Password
                 </InputLabel>
-                <Input id="password" />
+                <Input
+                  id="password"
+                  type="password"
+                  name="password"
+                  style={{
+                    color: "white",
+                    padding: "5px 15px",
+                  }}
+                />
               </FormControl>
               <FormControl
                 variant="filled"
@@ -132,7 +144,9 @@ const Register = () => {
                   background: "#B22727",
                 }}
               >
-                <Button color="info" type="submit">Login</Button>
+                <Button color="info" type="submit">
+                  SignUp
+                </Button>
               </FormControl>
 
               <Typography
@@ -146,7 +160,7 @@ const Register = () => {
                   SignIn
                 </Link>
               </Typography>
-            </Box>
+            </form>
           </div>
           <div />
         </Grid>
