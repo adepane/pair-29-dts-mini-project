@@ -2,7 +2,7 @@ import { Box, Button, FormControl, Grid, Input, InputLabel, Typography } from "@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Login = () => {
+const Register = () => {
     return (
       <Grid container style={{ minHeight: "100vh" }}>
         <Grid
@@ -154,4 +154,4 @@ const Login = () => {
     );
 }
 
-export default Login;
+export default Register;
