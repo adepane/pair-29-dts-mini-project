@@ -11,10 +11,16 @@ export const moviesApi = createApi({
     movies: builder.query({
       query: (type) => `/trending/${type}/week?api_key=${API_KEY}`,
     }),
+    moviesById: builder.query({
+        query: (id) => `/movie/${id}?api_key=${API_KEY}`,
+    }),
+    moviesTvById: builder.query({
+        query: (id) => `/tv/${id}?api_key=${API_KEY}`,
+    }),
     moviesTrailer: builder.query({
       query: (id) => `/movie/${id}/videos?api_key=${API_KEY}`,
     }),
-    moviesIdn: builder.query({
+    moviesDiscover: builder.query({
       query: (request) =>
         `/discover/${request.type}?api_key=${API_KEY}&region=${request.region}`,
     }),
@@ -37,8 +43,10 @@ export const moviesApi = createApi({
 
 export const {
     useMoviesQuery,
+    useMoviesByIdQuery,
+    useMoviesTvByIdQuery,
     useMoviesTrailerQuery,
-    useMoviesIdnQuery,
+    useMoviesDiscoverQuery,
     useMoviesTypeQuery,
     useMoviesPopularQuery,
     useMoviesTopRatedQuery,

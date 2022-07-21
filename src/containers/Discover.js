@@ -2,13 +2,13 @@ import { Container } from "@mui/material";
 import React from "react"; 
 import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
-import { useMoviesIdnQuery, useMoviesPopularQuery, useMoviesQuery, useMoviesTopRatedQuery } from "../services/moviesApi";
+import { useMoviesDiscoverQuery, useMoviesPopularQuery, useMoviesQuery, useMoviesTopRatedQuery } from "../services/moviesApi";
 import 'react-multi-carousel/lib/styles.css';
 import CarouselRow from "../components/CarouselRow/CarouselRow";
 
 const Discover = (props) => {
     const { data = [], isLoading, isError } = useMoviesQuery(props.data);
-    const { data: dataIdn = [], isLoading: idnIsLoading, isError: idnIsError } = useMoviesIdnQuery({'type':props.data, 'region':'id'});
+    const { data: dataIdn = [], isLoading: idnIsLoading, isError: idnIsError } = useMoviesDiscoverQuery({'type':props.data, 'region':'id'});
     const { data: topRated = [], isLoading: topRatedLoading, isError: topRatedError } = useMoviesTopRatedQuery(props.data);
     const { data: popular = [], isLoading: popularLoading, isError: popularError } = useMoviesPopularQuery(props.data);
     const trendingWeek = isLoading ? (
